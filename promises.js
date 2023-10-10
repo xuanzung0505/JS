@@ -20,3 +20,25 @@
   //   const result = await asyncFunc();
   //   console.log(result);
 })();
+
+//CHAINING
+(function EX2() {
+  const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const res = 1 + 1;
+      resolve(res);
+    }, 2000);
+  });
+
+  myPromise
+    .then((value) => {
+      console.log(value);
+      return myPromise;
+    })
+    .then((value) => {
+      console.log(value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+})();
