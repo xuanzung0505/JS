@@ -19,21 +19,25 @@
   //   }
   //   const result = await asyncFunc();
   //   console.log(result);
-})();
+});
 
 //CHAINING
 (function EX2() {
-  const myPromise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const res = 1 + 1;
-      resolve(res);
-    }, 2000);
-  });
+  function createPromise() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const res = 1 + 1;
+        resolve(res);
+      }, 2000);
+    });
+  }
+
+  let myPromise = createPromise();
 
   myPromise
     .then((value) => {
       console.log(value);
-      return myPromise;
+      return createPromise();
     })
     .then((value) => {
       console.log(value);
@@ -41,4 +45,20 @@
     .catch((err) => {
       console.log(err);
     });
+})();
+
+//promises.all
+(function EX3() {
+  function createPromise() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const res = 1 + 1;
+        resolve(res);
+      }, 2000);
+    });
+  }
+
+  Promise.all([createPromise(), createPromise()]).then((values) => {
+    console.log(values);
+  });
 })();

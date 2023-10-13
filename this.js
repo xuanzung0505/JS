@@ -28,21 +28,39 @@ foo.call(obj2);
 
 //try commenting out between 2 printGuest functions
 //arrow function pass the context into "this", while functions make their own
-//context 
+//context
 (function EX2() {
   const event = {
-    name : "Event",
-    guests: ["Bob","Doe"],
-    printGuests: function(){
-      this.guests.forEach(function (guest){
-        console.log(guest+" joined "+this.name)
-      })
+    name: "Event",
+    guests: ["Bob", "Doe"],
+    printGuests: function () {
+      this.guests.forEach(function (guest) {
+        console.log(guest + " joined " + this.name);
+      });
     },
     // printGuests(){
     //   this.guests.forEach((guest)=>{
     //     console.log(guest+" joined "+this.name)
     //   })
     // }
+  };
+  event.printGuests();
+})();
+
+(function EX3() {
+  function logThis() {
+    "use strict";
+    console.log(this);
   }
-  event.printGuests()
-})()
+
+  [1, 2, 3].forEach(logThis); // undefined, undefined, undefined
+
+  const obj = {
+    val: "hehe",
+    logThis: logThis,
+  };
+
+  [1, 2, 3].forEach(() => {
+    obj.logThis();
+  });
+})();
