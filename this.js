@@ -4,14 +4,14 @@ function foo() {
   console.log(this.bar);
 }
 
-foo();
+// foo();
 
 const obj1 = {
   bar: "bar obj1",
   foo: foo,
 };
 
-obj1.foo();
+// obj1.foo();
 
 const obj2 = {
   bar: "bar obj2",
@@ -24,25 +24,45 @@ foo.call(obj2);
   (() => {
     console.log(this); //refer to global object
   })();
-})();
+});
 
 //try commenting out between 2 printGuest functions
 //arrow function pass the context into "this", while functions make their own
-//context 
+//context
 (function EX2() {
   const event = {
-    name : "Event",
-    guests: ["Bob","Doe"],
-    printGuests: function(){
-      this.guests.forEach(function (guest){
-        console.log(guest+" joined "+this.name)
-      })
+    name: "Event",
+    guests: ["Bob", "Doe"],
+    printGuests: function () {
+      this.guests.forEach(function (guest) {
+        console.log(guest + " joined " + this.name);
+      });
     },
-    // printGuests(){
-    //   this.guests.forEach((guest)=>{
-    //     console.log(guest+" joined "+this.name)
-    //   })
-    // }
+    // printGuests() {
+    //   this.guests.forEach((guest) => {
+    //     console.log(guest + " joined " + this.name);
+    //   });
+    // },
+  };
+  event.printGuests();
+});
+
+(function EX3() {
+  function logThis() {
+    "use strict";
+    console.log(this);
   }
-  event.printGuests()
-})()
+
+  const obj = {
+    val: "hehe",
+    logThis: logThis,
+  };
+
+  [1, 2, 3].forEach(function a() {
+    console.log("hehe");
+  });
+  [1, 2, 3].forEach(obj.logThis); // undefined, undefined, undefined
+  [1, 2, 3].forEach(() => {
+    obj.logThis();
+  });
+})();
