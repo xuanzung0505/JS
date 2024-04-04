@@ -1,4 +1,5 @@
 class Entity {
+  protected value: string;
   constructor() {
     this.value = "entity";
   }
